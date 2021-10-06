@@ -11,7 +11,7 @@ fi
 
 starvalue=$(file "$1" | awk -F '.' '{print $2}' | awk -F ' ' '{print $1}')
 
-if [ "$starvalue" == "star:" ]
+if [ "$starvalue" == "star:" ] || [ "$2" == "archive" ]
 then
 	echo "is star"
 	if [ "$2" == "unzip" ]
@@ -21,7 +21,7 @@ then
 	then
 		star -t -f="$1"
 	else
-		star -xattr -H=exustar -c -f="$2" "$1"
+		star -xattr -H=exustar -c -f="$3" "$1"
 		echo "star created"
 		file "$2" 
 	fi
@@ -66,7 +66,7 @@ case "$OPTION" in
         exit 0
         ;;
     4) 
-	checkifstart "$1" "$FILENAME"
+	checkifstar "$1" "archive" "$FILENAME"
 	;;
     5)
 	checkifstar "$1" "view"
@@ -80,7 +80,7 @@ case "$OPTION" in
         ;;
     *)
         echo "Goodbye!"
-        sleep .4 
+        sleep .2
         clear
         echo "..."
         sleep .5
