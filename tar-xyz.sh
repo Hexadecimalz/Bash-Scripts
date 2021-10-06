@@ -1,7 +1,9 @@
 #!/bin/bash
 
 checkifstar(){
-if ! star -v &> /dev/null 
+# turns out star has no version option
+#if ! star -v &> /dev/null 
+if [ ! -f /usr/bin/star ] 
 then 
 	echo "Star is not installed, please install and run again"
 	exit 2
@@ -20,10 +22,11 @@ then
 		star -t -f="$1"
 	else
 		star -xattr -H=exustar -c -f="$2" "$1"
+		echo "star created"
+		file "$2" 
 	fi
 	exit 0
 fi
-
 }
 
 if [ -z "$1"  ]
