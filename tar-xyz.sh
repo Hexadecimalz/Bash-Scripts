@@ -23,7 +23,7 @@ then
 	else
 		star -xattr -H=exustar -c -f="$3" "$1"
 		echo "star created"
-		file "$2" 
+		file "$3" 
 	fi
 	exit 0
 fi
