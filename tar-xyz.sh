@@ -13,7 +13,6 @@ starvalue=$(file "$1" | awk -F '.' '{print $2}' | awk -F ' ' '{print $1}')
 
 if [ "$starvalue" == "star:" ] || [ "$2" == "archive" ]
 then
-	echo "is star"
 	if [ "$2" == "unzip" ]
 	then
 		star -x -f="$1"
@@ -46,6 +45,14 @@ else
     fi
 fi
 
+
+isstar=$(file "$1" | awk -F '.' '{print $2}' | awk -F ' ' '{print $1}')
+
+if [ "$isstar" == "star:" ] 
+then
+	isstar=1 
+fi
+
 case "$OPTION" in
     1)
         tar cvfz "$FILENAME" "$1"
@@ -69,13 +76,21 @@ case "$OPTION" in
 	checkifstar "$1" "archive" "$FILENAME"
 	;;
     5)
-	checkifstar "$1" "view"
-        tar tvf "$1"
+	if [ "$isstar" == "1" ] 
+	then
+		checkifstar "$1" "view"
+	else
+		tar tvf "$1" 
+	fi 
         exit 0
         ;;
     6)
-	checkifstar "$1" "unzip"
-        tar xvf "$1"
+	if [ "$isstar" == "1" ]
+	then
+		checkifstar "$1" "unzip"
+	else
+	        tar xvf "$1"
+	fi
         exit 0
         ;;
     *)
