@@ -1,7 +1,7 @@
 #/usr/bin/env bash 
-# Interactively creates files for Zettlr notes based on the patter module-x-x
+# Interactively creates files for Zettlr notes based on the pattern module-x-x
 # Adds Yaml frontmatter to the beginning of each file to save some time 
-# Front matter also create some h2 section headings as well
+# Front matter also creates some h2 section headings as well
 frontmatter(){
 frontmatter=$(cat <<EOF
 ---
