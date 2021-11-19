@@ -27,7 +27,7 @@ createfiles(){
 	for (( i=1; i<=$2; i++ )) 
 	do 
 		echo "What is the section($i)'s name?" 
-		read name
+		read "name"
 		filename=module-$1-$i.md
 		touch $filename
 		frontmatter "$1-$i" "$name" "$filename"
@@ -37,9 +37,9 @@ createfiles(){
 
 createmodule(){
 echo "Which module/chapter should we create?"
-read MODULENUM 
+read "MODULENUM" 
 echo "How many lesson groups in this module/chapter?" 
-read LESSONS
+read "LESSONS"
 createfiles "$MODULENUM" "$LESSONS"
 }
 
@@ -49,7 +49,7 @@ while true
 do 
 	clear
 	echo "Would you like to create another module/chapter? Yes / No?"
-	read RESPONSE
+	read "RESPONSE"
 	case $RESPONSE in
 		Yes | Y | y | 1)createmodule;;
 		*)echo "Goodbye" && clear && break;;
