@@ -6,7 +6,7 @@
 
 # How to use it? 
 ## Chmod tinyssh +x 
-## Copy tinyssh to /usr/bin/local 
+## Copy tinyssh to /usr/local/bin 
 ## Run it by typing: tinyssh ssh user@IP
 ## OR tinyssh user@IP
 ## Forgot your alias type: tinyssh view 
