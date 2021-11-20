@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Intro
+## Problem: lots of SSH but making an alias is no fun. 
+## Solution: tinyssh, creates an alias 
+## when invoked and then gets you into your remote box 
+
+# How to use it? 
+## Chmod short +x 
+## Copy short to /usr/bin/local 
+## Run it by typing: tinyssh ssh user@IP
+## OR tinyssh user@IP
+## Forgot your alias type: tinyssh view 
+
+# Optional Setup 
+## Uncomment the line below to disable StrictHostKeyChecking
+#hostcheck="no"
+
+# Make sure aliases file is there, if not make it 
+[[ ! -f ~/.bash_aliases ]] && touch ~/.bash_aliases
+
+# Create a section for aliases if it doesn't exist
+if ! grep -qxF '#Tiny SSH Aliases' ~/.bash_aliases
+then 
+	echo -e "#Tiny SSH Aliases\n#End Tiny SSH Aliases" >> ~/.bash_aliases
+fi 
+
+# Function to show aliases if forgotten 
+show_aliases(){
+sed -n '/^#Tiny/,/^#End Tiny/p' ~/.bash_aliases
+}
+
+# Show aliases 
+[[ "$1" == "show" ]] && show_aliases && exit 0
+[[ "$1" == "view" ]] && show_aliases && exit 0
+
+# Check for an empty argument, if so, exit
+[[ $# -lt 1 ]] && echo "You must supply an ssh connection string ssh user@IP or, use the argument show to show aliases" && exit 1
+[[ $# -gt 2 ]] && echo "You may not provide more than 2 arguments" && exit 3
+
+# If not asking to view then prompt for alias name
+echo "What would you like to name this alias?" 
+read "SHORTNAME" 
+
+# Setup first connection string
+if [[ "$hostcheck" == "no" ]]; then 
+	sshstring="ssh -o StrictHostKeyChecking=no"
+else 
+	sshstring="ssh" 
+fi
+
+# Create the alias and run SSH first time
+if [[ "$1" == "ssh" ]] 
+then
+	sed -i "/^#End/i alias $SHORTNAME=\"ssh $2\"" ~/.bash_aliases
+        echo "Alias created, you may use it on all new shells, just type $SHORTNAME"
+	$sshstring $2
+elif [[ "$1" != "ssh" ]] 
+then
+	sed -i "/^#End/i  alias $SHORTNAME=\"ssh $1\"" ~/.bash_aliases
+        echo "Alias created, you may use it on all new shells, just type $SHORTNAME"
+        $sshstring "$1"
+fi
+
+# Create a new shell to source the alias file from .bashrc 
+/bin/bash
