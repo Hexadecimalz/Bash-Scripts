@@ -5,8 +5,8 @@
 ## when invoked and then gets you into your remote box 
 
 # How to use it? 
-## Chmod short +x 
-## Copy short to /usr/bin/local 
+## Chmod tinyssh +x 
+## Copy tinyssh to /usr/bin/local 
 ## Run it by typing: tinyssh ssh user@IP
 ## OR tinyssh user@IP
 ## Forgot your alias type: tinyssh view 
