@@ -39,10 +39,10 @@ sed -n '/^#Tiny/,/^#End Tiny/p' ~/.bash_aliases
 
 # If not asking to view then prompt for alias name
 echo "What would you like to name this alias?" 
-read "SHORTNAME" 
+read -r "SHORTNAME" 
 
 # Setup first connection string
-if [[ "$hostcheck" == "no" ]]; then 
+if [[ -n "$hostcheck" ]]; then 
 	sshstring="ssh -o StrictHostKeyChecking=no"
 else 
 	sshstring="ssh" 
@@ -53,7 +53,7 @@ if [[ "$1" == "ssh" ]]
 then
 	sed -i "/^#End/i alias $SHORTNAME=\"ssh $2\"" ~/.bash_aliases
         echo "Alias created, you may use it on all new shells, just type $SHORTNAME"
-	$sshstring $2
+	$sshstring "$2"
 elif [[ "$1" != "ssh" ]] 
 then
 	sed -i "/^#End/i  alias $SHORTNAME=\"ssh $1\"" ~/.bash_aliases
