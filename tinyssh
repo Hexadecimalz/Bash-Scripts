@@ -29,9 +29,40 @@ show_aliases(){
 sed -n '/^#Tiny/,/^#End Tiny/p' ~/.bash_aliases
 }
 
+delete_alias(){
+	show_aliases
+	echo -e "\nType the name of the alias you would like to delete:"
+	read -r "DELETELINE"
+	sed -i "/^alias $DELETELINE=/d" ~/.bash_aliases
+}
+
+
+helptext(){
+cat <<HelpMSG
+Usage: tinyssh USER@IP
+Alternate Usage: tinyssh ssh USER@IP
+
+Additional Features:
+tinyssh show    Show Aliases 
+tinyssh view	Show A liases 
+tinyssh delete  Show Aliases & Delete
+		 Based on Name 
+
+Alias Creation 
+tinyssh USER@IP 
+
+Optional Configuration 
+Uncomment line 11 to disable
+StrictHostKeyChecking
+HelpMSG
+}
+
 # Show aliases 
 [[ "$1" == "show" ]] && show_aliases && exit 0
 [[ "$1" == "view" ]] && show_aliases && exit 0
+[[ "$1" == "delete" ]] && delete_alias && exit 0 
+[[ "$1" == "help" ]] && helptext && exit 0 
+[[ "$1" == "--help" ]] && helptext && exit 0 
 
 # Check for an empty argument, if so, exit
 [[ $# -lt 1 ]] && echo "You must supply an ssh connection string ssh user@IP or, use the argument show to show aliases" && exit 1
