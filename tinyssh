@@ -36,7 +36,6 @@ delete_alias(){
 	sed -i "/^alias $DELETELINE=/d" ~/.bash_aliases
 }
 
-
 helptext(){
 cat <<HelpMSG
 Usage: tinyssh USER@IP
@@ -52,20 +51,19 @@ Alias Creation
 tinyssh USER@IP 
 
 Optional Configuration 
-Uncomment line 11 to disable
+Uncomment line 16 to disable
 StrictHostKeyChecking
 HelpMSG
 }
 
 # Show aliases 
-[[ "$1" == "show" ]] && show_aliases && exit 0
-[[ "$1" == "view" ]] && show_aliases && exit 0
-[[ "$1" == "delete" ]] && delete_alias && exit 0 
-[[ "$1" == "help" ]] && helptext && exit 0 
-[[ "$1" == "--help" ]] && helptext && exit 0 
+[[ "$1" =~ -*sho+ ]] && show_aliases && exit 0
+[[ "$1" =~ -*v+ ]] && show_aliases && exit 0
+[[ "$1" =~ -*d+ ]] && delete_alias && exit 0 
+[[ "$1" =~ -*h+ ]] && helptext && exit 0 
 
 # Check for an empty argument, if so, exit
-[[ $# -lt 1 ]] && echo "You must supply an ssh connection string ssh user@IP or, use the argument show to show aliases" && exit 1
+[[ $# -lt 1 ]] && echo "You must supply an ssh connection string ssh user@IP or, use the argument show to show aliases. Type --help for help." && exit 1
 [[ $# -gt 2 ]] && echo "You may not provide more than 2 arguments" && exit 3
 
 # If not asking to view then prompt for alias name
