@@ -44,7 +44,7 @@ Alternate Usage: tinyssh ssh USER@IP
 
 Additional Features:
 tinyssh show    Show Aliases 
-tinyssh view	Show A liases 
+tinyssh view	Show Aliases 
 tinyssh delete  Show Aliases & Delete
 		 Based on Name 
 
