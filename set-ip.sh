@@ -21,7 +21,7 @@ HelpMSG
 # Catch help calls, catch not sudo, catch no IP, catch no nic, catch no nmcli
 [[ "$1" =~ -*h+ ]] && show_help && exit 0
 [[ "$EUID" -ne 0 ]] && echo -e "Please run as sudo/root" && exit 6
-[[ -z "$1" ]] && echo -e "Please enter an IP"i && show_help && exit 4
+[[ -z "$1" ]] && echo -e "Please enter an IP" && show_help && exit 4
 [[ -z "$2" ]] && echo -e "Please supply an interface" && show_help && exit 6
 [[ ! -f /usr/bin/nmcli ]] && echo -e "nmcli is not detected" && show_help && exit 5
 
