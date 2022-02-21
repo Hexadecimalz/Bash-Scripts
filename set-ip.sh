@@ -7,6 +7,17 @@
 # Exit 5: no nmcli found
 # Exit 6: all other errors
 
+show_help(){
+cat <<HelpMSG
+==========================
+Usage: sudo bash set-ip.sh IP INTERFACE
+
+Prerequisites: 
+You must have nmcli installed
+to install: yum install NetworkManager
+==========================
+HelpMSG
+}
 # Catch help calls, catch not sudo, catch no IP, catch no nic, catch no nmcli
 [[ "$1" =~ -*h+ ]] && show_help && exit 0
 [[ "$EUID" -ne 0 ]] && echo -e "Please run as sudo/root" && exit 6
@@ -22,18 +33,6 @@ get_route(){
 
 show_dns(){
     nmcli | grep -A6 "DNS configuration:"
-}
-
-show_help(){
-cat <<HelpMSG
-==========================
-Usage: sudo bash set-ip.sh IP INTERFACE
-
-Prerequisites: 
-You must have nmcli installed
-to install: yum install NetworkManager
-==========================
-HelpMSG
 }
 
 # how to delete an IP
