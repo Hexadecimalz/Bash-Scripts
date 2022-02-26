@@ -32,8 +32,8 @@ sed -n '/^#Tiny/,/^#End Tiny/p' ~/.bash_aliases
 delete_alias(){
 	show_aliases
 	echo -e "\nType the name of the alias you would like to delete:"
-	read -r "DELETELINE"
-	sed -i "/^alias $DELETELINE=/d" ~/.bash_aliases
+	read -r "deleteline"
+	sed -i "/^alias $deleteline=/d" ~/.bash_aliases
 }
 
 helptext(){
@@ -68,7 +68,7 @@ HelpMSG
 
 # If not asking to view then prompt for alias name
 echo "What would you like to name this alias?" 
-read -r "SHORTNAME" 
+read -r "shortname" 
 
 # Setup first connection string
 if [[ -n "$hostcheck" ]]; then 
@@ -80,13 +80,13 @@ fi
 # Create the alias and run SSH first time
 if [[ "$1" == "ssh" ]] 
 then
-	sed -i "/^#End/i alias $SHORTNAME=\"ssh $2\"" ~/.bash_aliases
-        echo "Alias created, you may use it on all new shells, just type $SHORTNAME"
+	sed -i "/^#End/i alias $shortname=\"ssh $2\"" ~/.bash_aliases
+        echo "Alias created, you may use it on all new shells, just type $shortname"
 	$sshstring "$2"
 elif [[ "$1" != "ssh" ]] 
 then
-	sed -i "/^#End/i  alias $SHORTNAME=\"ssh $1\"" ~/.bash_aliases
-        echo "Alias created, you may use it on all new shells, just type $SHORTNAME"
+	sed -i "/^#End/i  alias $shortname=\"ssh $1\"" ~/.bash_aliases
+        echo "Alias created, you may use it on all new shells, just type $shortname"
         $sshstring "$1"
 fi
 
