@@ -36,12 +36,12 @@ then
 else
     ls -ald $1 || ls -al $1
     echo -e "Options\n1) Create gzip archive \n2) Create bzip archive\n3) Create xz archive\n4) Create star archive\n5) View\n6) Unzip\n7) Exit"
-    read -r OPTION
+    read -r option
     clear
-    if [ "$OPTION" == "1" ] || [ "$OPTION" == "2" ] || [ "$OPTION" == "3" ] || [ "$OPTION" == "4" ]
+    if [ "$option" == "1" ] || [ "$option" == "2" ] || [ "$option" == "3" ] || [ "$option" == "4" ]
     then  
         echo -e "Please supply a filename for your archive"
-        read -r FILENAME
+        read -r filename
     fi
 fi
 
@@ -53,27 +53,27 @@ then
 	isstar=1 
 fi
 
-case "$OPTION" in
+case "$option" in
     1)
-        tar cvfz "$FILENAME" "$1"
+        tar cvfz "$filename" "$1"
         echo "gzip created"
-        file "$FILENAME"
+        file "$filename"
         exit 0
         ;; 
     2) 
-        tar cvfj "$FILENAME" "$1" 
+        tar cvfj "$filename" "$1" 
         echo "bzip created"
-        file "$FILENAME"
+        file "$filename"
         exit 0
         ;;
     3)
-        tar cvfJ "$FILENAME" "$1" 
+        tar cvfJ "$filename" "$1" 
         echo "xz created"
-        file "$FILENAME"
+        file "$filename"
         exit 0
         ;;
     4) 
-	checkifstar "$1" "archive" "$FILENAME"
+	checkifstar "$1" "archive" "$filename"
 	;;
     5)
 	if [ "$isstar" == "1" ] 
