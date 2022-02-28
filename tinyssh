@@ -58,8 +58,8 @@ HelpMSG
 
 # Show aliases 
 [[ "$1" =~ -*sho+ ]] && show_aliases && exit 0
-[[ "$1" =~ -*v+ ]] && show_aliases && exit 0
-[[ "$1" =~ -*d+ ]] && delete_alias && exit 0 
+[[ "$1" =~ -*vie+ ]] && show_aliases && exit 0
+[[ "$1" =~ -*del+ ]] && delete_alias && exit 0 
 [[ "$1" =~ -*h+ ]] && helptext && exit 0 
 
 # Check for an empty argument, if so, exit
