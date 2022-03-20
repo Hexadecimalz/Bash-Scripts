@@ -12,7 +12,7 @@ cat <<HelpMSG
 ==========================
 Usage: sudo bash set-ip.sh IP INTERFACE
 
-Prerequisites: 
+Prerequisites:
 You must have nmcli installed
 to install: yum install NetworkManager
 ==========================
@@ -49,6 +49,7 @@ if [[ "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]
 then
         sudo nmcli con mod "$2" ipv4.addresses "$1"
         sudo nmcli con up "$2"
+        sudo nmcli con mod "$2" autoconnect yes
         echo -e "\nPlease verify that your newly set static IP appears below:"
         nmcli | grep inet4
         sleep 3
